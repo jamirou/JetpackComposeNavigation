@@ -8,6 +8,9 @@ import androidx.navigation.toRoute
 import com.devjamiro.jetpackcomposenavigation.DetailScreen
 import com.devjamiro.jetpackcomposenavigation.HomeScreen
 import com.devjamiro.jetpackcomposenavigation.LoginScreen
+import com.devjamiro.jetpackcomposenavigation.SettingsScreen
+import com.devjamiro.jetpackcomposenavigation.core.navigation.type.settingsInfoType
+import kotlin.reflect.typeOf
 
 @Composable
 fun NavigationWrapper() {
@@ -19,12 +22,16 @@ fun NavigationWrapper() {
         composable<Home> {
             HomeScreen { name -> navController.navigate(Detail(name = name)) }
         }
-        composable<Detail> {
+        composable<Detail> { it ->
             val detail = it.toRoute<Detail>()
-            DetailScreen(detail.name) {
-                navController.navigateUp()
-                }
-            }
+            DetailScreen(
+                name = detail.name,
+                navigateBack = { navController.navigateUp() },
+                navigateToSettings = { navController.navigate(Settings(it)) })
+        }
+        composable<Settings>(typeMap = mapOf(typeOf<SettingsInfo>() to settingsInfoType)) { backStackEntry ->
+            val settings: Settings = backStackEntry.toRoute()
+            SettingsScreen(settings.info)
         }
     }
 }
