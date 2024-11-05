@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.devjamiro.jetpackcomposenavigation"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.devjamiro.jetpackcomposenavigation"
