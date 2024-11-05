@@ -22,7 +22,9 @@ fun NavigationWrapper() {
         composable<Detail> {
             val detail = it.toRoute<Detail>()
             DetailScreen(detail.name) {
-                navController.popBackStack()
+                navController.navigate(Login) {
+                    popUpTo<Login> { inclusive = true }
+                }
             }
         }
     }
