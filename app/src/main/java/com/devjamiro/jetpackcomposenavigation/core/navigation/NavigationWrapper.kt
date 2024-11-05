@@ -21,7 +21,9 @@ fun NavigationWrapper() {
         }
         composable<Detail> {
             val detail = it.toRoute<Detail>()
-            DetailScreen(detail.name)
+            DetailScreen(detail.name) {
+                navController.popBackStack()
+            }
         }
     }
 }
