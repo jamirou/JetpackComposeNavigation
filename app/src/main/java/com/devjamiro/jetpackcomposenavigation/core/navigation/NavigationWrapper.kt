@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.devjamiro.jetpackcomposenavigation.DetailScreen
 import com.devjamiro.jetpackcomposenavigation.HomeScreen
@@ -19,7 +20,9 @@ fun NavigationWrapper() {
         composable<Login> {
             LoginScreen { navController.navigate(Home) }
         }
-        composable<Home> {
+        composable<Home>(deepLinks = listOf(navDeepLink {
+            uriPattern = "https://main--devjamiro.netlify.app/"
+        })) {
             HomeScreen { name -> navController.navigate(Detail(name = name)) }
         }
         composable<Detail> { it ->
